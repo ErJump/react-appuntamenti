@@ -5,14 +5,29 @@ export default function List() {
 
     const [appointments, setAppointments] = useState(data);
     
-    const removeAppointment = (id) =>{
+    const removeAppointment = (id) => {
         setAppointments((oldAppointments) => {
             return oldAppointments.filter(el => el.id !== id)
         })
     }
 
+    const resetAppointments = () => {
+        setAppointments(data);
+    }
+
+    const deleteAllAppointments = () => {
+        setAppointments([]);
+    }
+
     return (
         <div className='row'>
+            {
+                appointments.length === 0 && (
+                    <div className='col-12'>
+                        <h2 className='text-center text-white'>No appointments for today</h2>
+                    </div>
+                )
+            }
             {
                 appointments.map((appointment) => (
                     <div key={appointment.id} className='col-12 ms_card py-3 mb-3 d-flex align-items-center'>
@@ -28,8 +43,8 @@ export default function List() {
                 ))
             }
             <div className="col-12 d-flex justify-content-between px-0">
-                <button className='btn btn-success'>Reset</button>
-                <button className='btn btn-danger'>Delete All</button>
+                <button className='btn btn-success' onClick={resetAppointments}>Reset</button>
+                <button className='btn btn-danger' onClick={deleteAllAppointments}>Delete All</button>
             </div>
         </div>
     )
